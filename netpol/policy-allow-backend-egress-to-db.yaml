@@ -1,0 +1,15 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: policy-allow-backend-to-db
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  egress:
+    - {}
+    - ports:
+        - protocol: TCP
+          port: 3306
+  policyTypes:
+    - Egress

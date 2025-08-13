@@ -1,0 +1,19 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: policy-allow-backend-ingress-from-frontend
+  namespace: summukhe-dev
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 8080
+      from:
+        - podSelector:
+            matchLabels:
+              app: frontend
+  policyTypes:
+    - Ingress

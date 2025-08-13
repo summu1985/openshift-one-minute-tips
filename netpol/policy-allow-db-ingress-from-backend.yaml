@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: policy-allow-db-ingress-from-backend
+spec:
+  podSelector:
+    matchLabels:
+      name: mysql
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 3306
+      from:
+        - podSelector:
+            matchLabels:
+              app: backend
+  policyTypes:
+    - Ingress
